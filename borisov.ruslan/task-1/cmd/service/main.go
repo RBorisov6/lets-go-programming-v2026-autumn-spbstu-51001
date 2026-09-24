@@ -7,19 +7,21 @@ import (
 
 func main() {
 	var input1, input2, operator string
-	fmt.Scan(&input1, &input2, &operator)
+	if _, err := fmt.Scan(&input1, &input2, &operator); err != nil {
+		return
+	}
 
 	number1, err := strconv.ParseFloat(input1, 64)
 	if err != nil {
 		fmt.Println("Invalid first operand")
 		return
-	} 
+	}
 	
 	number2, err := strconv.ParseFloat(input2, 64)
 	if err != nil {
 		fmt.Println("Invalid second operand")
 		return
-	} 
+	}
 
 	switch operator {
 	case "+":
