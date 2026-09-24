@@ -16,7 +16,7 @@ func main() {
 		fmt.Println("Invalid first operand")
 		return
 	}
-	
+
 	number2, err := strconv.ParseFloat(input2, 64)
 	if err != nil {
 		fmt.Println("Invalid second operand")
