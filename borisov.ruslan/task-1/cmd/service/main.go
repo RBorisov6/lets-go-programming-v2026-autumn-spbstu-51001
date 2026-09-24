@@ -6,20 +6,24 @@ import (
 )
 
 func main() {
-	var number1, number2, operator string
-	fmt.Scan(&number1, &operator, &number2)
+	var input1, input2, operator string
+	fmt.Scan(&input1, &input2, &operator)
 
-	number1, err1 := strconv.ParseFloat(number1, 64)
-	number2, err2 := strconv.ParseFloat(number1, 64)
+	number1, err1 := strconv.ParseFloat(input1, 64)
+	number2, err2 := strconv.ParseFloat(input2, 64)
 	
 	if err1 != nil {
 		fmt.Println("Invalid first operand")
+		return
 	} else if err2 != nil {
 		fmt.Println("Invalid second operand")
-	} else if operator != "+", && operator != "-" && operator != "*" && operator != "/"{
+		return
+	} else if operator != "+" && operator != "-" && operator != "*" && operator != "/"{
 		fmt.Println("Invalid operation")
+		return
 	} else if operator == "/" && number2 == 0 {
 		fmt.Println("Division by zero")
+		return
 	}
 
 	switch operator {
