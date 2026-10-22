@@ -1,72 +1,76 @@
 package main
 
-import (
-	"fmt"
-)
+import "fmt"
+
+func changeClimatHandler(operator string, minTemp, maxTemp *int, num int) int {
+	switch operator {
+	case ">=":
+		if num > *minTemp {
+			*minTemp = num
+		}
+
+	case "<=":
+		if num < *maxTemp {
+			*maxTemp = num
+		}
+	}
+
+	if *minTemp > *maxTemp {
+		return -1
+	}
+
+	return *minTemp
+}
 
 func main() {
-	const (
-		mincount = 1
-		maxcount = 1000
-	)
+	var countDepartments int
 
-	var N int
-
-	_, err := fmt.Scan(&N)
-
-	if err != nil || N < mincount || N > maxcount {
+	if _, err := fmt.Scan(&countDepartments); err != nil {
 		fmt.Println("Invalid count of departments")
+
 		return
 	}
 
-	for dep := 0; dep < N; dep++ {
-		var K int
+	for range countDepartments {
+		var countEmployees int
 
-		_, err := fmt.Scan(&K)
-		if err != nil || K < mincount || K > maxcount {
-			fmt.Println("Invalid count of employers")
+		if _, err := fmt.Scan(&countEmployees); err != nil {
+			fmt.Println("Invalid count of employees")
+
 			return
 		}
 
-		mintemperature := 15
-		maxtemperature := 30
+		minTemp := 15
+		maxTemp := 30
 
-		for emp := 0; emp < K; emp++ {
+		for range countEmployees {
 			var operator string
 
-			_, err := fmt.Scan(&operator)
-			if err != nil {
+			if _, err := fmt.Scan(&operator); err != nil {
 				fmt.Println("Invalid operator")
+
+				return
+			}
+
+			if operator != ">=" && operator != "<=" {
+				fmt.Println("Invalid operator")
+
 				return
 			}
 
 			var num int
-			_, err2 := fmt.Scan(&num)
-			if err2 != nil {
+
+			if _, err := fmt.Scan(&num); err != nil {
 				fmt.Println("Invalid number")
+
 				return
 			}
 
-			switch operator {
-			case ">=":
-				if num >= mintemperature {
-					mintemperature = num
-				}
-			case "<=":
-				if num >= mintemperature {
-					maxtemperature = num
-				}
-			default:
-				fmt.Printf("Invalid operator")
-				return
-			}
+			corrTemp := changeClimatHandler(
+				operator, &minTemp, &maxTemp, num,
+			)
 
-			if mintemperature > maxtemperature {
-				fmt.Println(-1)
-				continue
-			}
-
-			fmt.Println(mintemperature)
+			fmt.Println(corrTemp)
 		}
 	}
 }
